@@ -12,6 +12,7 @@ import UIKit
     @objc optional func spotlightViewControllerWillPresent(_ viewController: SpotlightViewController, animated: Bool)
     @objc optional func spotlightViewControllerWillDismiss(_ viewController: SpotlightViewController, animated: Bool)
     @objc optional func spotlightViewControllerTapped(_ viewController: SpotlightViewController, isInsideSpotlight: Bool)
+    @objc optional func spotlightViewControllerLongPressed(_ viewController: SpotlightViewController, isInsideSpotlight: Bool)
 }
 
 open class SpotlightViewController: UIViewController {
@@ -81,6 +82,11 @@ open class SpotlightViewController: UIViewController {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(SpotlightViewController.viewTapped(_:)));
         view.addGestureRecognizer(gesture)
     }
+    
+    fileprivate func setupLongPressGesture() {
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(SpotlightViewController.viewLongPressed(_:)));
+        view.addGestureRecognizer(gesture)
+    }
 }
 
 extension SpotlightViewController {
@@ -88,6 +94,12 @@ extension SpotlightViewController {
         let touchPoint = gesture.location(in: spotlightView)
         let isInside = spotlightView.spotlight?.frame.contains(touchPoint) ?? false
         delegate?.spotlightViewControllerTapped?(self, isInsideSpotlight: isInside)
+    }
+    
+    func viewLongPressed(_ gesture: UILongPressGestureRecognizer) {
+        let pressPoint = gesture.location(in: spotlightView)
+        let isInside = spotlightView.spotlight?.frame.contains(pressPoint) ?? false
+        delegate?.spotlightViewControllerLongPressed?(self, isInsideSpotlight: isInside)
     }
 }
 
