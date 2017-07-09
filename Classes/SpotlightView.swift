@@ -18,7 +18,7 @@ open class SpotlightView: UIView {
         return layer
     }()
     
-    var spotlight: SpotlightType?
+    open var spotlight: SpotlightType?
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
