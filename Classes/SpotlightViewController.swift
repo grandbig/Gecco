@@ -51,6 +51,7 @@ open class SpotlightViewController: UIViewController {
         setupSpotlightView(alpha)
         setupContentView()
         setupTapGesture()
+        setupLongPressGesture()
         
         view.backgroundColor = UIColor.clear
     }
